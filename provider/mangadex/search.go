@@ -6,7 +6,6 @@ import (
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
 	"github.com/spf13/viper"
-	"log"
 	"net/url"
 	"strconv"
 )
@@ -39,7 +38,6 @@ func (m *Mangadex) Search(query string) ([]*source.Manga, error) {
 
 	mangaList, err := m.client.Manga.GetMangaList(params)
 	if err != nil {
-		log.Fatalln(err)
 		return nil, err
 	}
 

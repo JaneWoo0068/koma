@@ -89,7 +89,7 @@ func chapterFromTable(table *lua.LTable, manga *source.Manga, index uint16) (cha
 	}
 
 	mappings := map[string]mapping{
-		"name":          {A: lua.LTString, B: true, C: func(v string) error { chapter.Name = v; return nil }},
+		"name":          {A: lua.LTString, B: true, C: func(v string) error { chapter.Name = strings.Join(strings.Fields(v), " "); return nil }},
 		"url":           {A: lua.LTString, B: true, C: func(v string) error { chapter.URL = v; return nil }},
 		"volume":        {A: lua.LTString, B: false, C: func(v string) error { chapter.Volume = v; return nil }},
 		"manga_summary": {A: lua.LTString, B: false, C: func(v string) error { manga.Metadata.Summary = v; return nil }},

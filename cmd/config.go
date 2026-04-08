@@ -127,6 +127,10 @@ var configSetCmd = &cobra.Command{
 			handleErr(errUnknownKey(key))
 		}
 
+		if len(value) == 0 {
+			value = []string{""}
+		}
+
 		var v any
 		switch config.Default[key].Value.(type) {
 		case string:

@@ -3,8 +3,6 @@ package provider
 import (
 	"github.com/metafates/mangal/provider/generic"
 	"github.com/metafates/mangal/provider/mangadex"
-	"github.com/metafates/mangal/provider/manganato"
-	"github.com/metafates/mangal/provider/manganelo"
 	"github.com/metafates/mangal/provider/mangapill"
 	"github.com/metafates/mangal/source"
 )
@@ -23,8 +21,6 @@ var builtinProviders = []*Provider{
 
 func init() {
 	for _, conf := range []*generic.Configuration{
-		manganelo.Config,
-		manganato.Config,
 		mangapill.Config,
 	} {
 		conf := conf

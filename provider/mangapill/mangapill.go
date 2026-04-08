@@ -16,14 +16,13 @@ var Config = &generic.Configuration{
 	ReverseChapters: true,
 	BaseURL:         "https://mangapill.com",
 	GenerateSearchURL: func(query string) string {
-		query = strings.ReplaceAll(query, " ", "+")
-		query = strings.ToLower(query)
 		query = strings.TrimSpace(query)
+		query = strings.ToLower(query)
 		template := "https://mangapill.com/search?q=%s&type=&status="
 		return fmt.Sprintf(template, url.QueryEscape(query))
 	},
 	MangaExtractor: &generic.Extractor{
-		Selector: "body > div.container.py-3 > div.my-3.grid.justify-end.gap-3.grid-cols-2.md\\:grid-cols-3.lg\\:grid-cols-5 > div",
+		Selector: "div.my-3.grid.justify-end.gap-3.grid-cols-2 > div",
 		Name: func(selection *goquery.Selection) string {
 			return strings.TrimSpace(selection.Find("div a div.leading-tight").Text())
 		},

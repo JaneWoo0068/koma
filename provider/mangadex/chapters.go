@@ -39,6 +39,7 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 	var (
 		chapters   []*source.Chapter
 		currOffset = 0
+		chapterIdx uint16
 	)
 
 	language := viper.GetString(key.MangadexLanguage)
@@ -50,7 +51,7 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 			return nil, err
 		}
 
-		for i, chapter := range list.Data {
+		for _, chapter := range list.Data {
 			// Skip external chapters. Their pages cannot be downloaded.
 			if chapter.Attributes.ExternalURL != nil && !viper.GetBool(key.MangadexShowUnavailableChapters) {
 				continue
@@ -58,7 +59,6 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 
 			// skip chapters that are not in the current language
 			if language != "any" && chapter.Attributes.TranslatedLanguage != language {
-				currOffset += 500
 				continue
 			}
 
@@ -75,18 +75,15 @@ func (m *Mangadex) ChaptersOf(manga *source.Manga) ([]*source.Chapter, error) {
 			}
 			chapters = append(chapters, &source.Chapter{
 				Name:   name,
-				Index:  uint16(i),
+				Index:  chapterIdx,
 				ID:     chapter.ID,
 				URL:    fmt.Sprintf("https://mangadex.org/chapter/%s", chapter.ID),
 				Manga:  manga,
 				Volume: volume,
 			})
+			chapterIdx++
 		}
 		currOffset += 500
-		if currOffset >= list.Total {
-			break
-		}
-
 		if currOffset >= list.Total {
 			break
 		}

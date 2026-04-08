@@ -155,7 +155,7 @@ func (b *statefulBubble) resize(width, height int) {
 
 func (b *statefulBubble) startLoading() tea.Cmd {
 	b.loading = true
-	return tea.Batch(b.mangasC.StartSpinner(), b.chaptersC.StartSpinner())
+	return tea.Batch(b.mangasC.StartSpinner(), b.chaptersC.StartSpinner(), b.spinnerC.Tick)
 }
 
 func (b *statefulBubble) stopLoading() tea.Cmd {

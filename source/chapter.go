@@ -45,6 +45,10 @@ func (c *Chapter) String() string {
 // DownloadPages downloads the Pages contents of the Chapter.
 // Pages needs to be set before calling this function.
 func (c *Chapter) DownloadPages(temp bool, progress func(string)) (err error) {
+	if len(c.Pages) == 0 {
+		return fmt.Errorf("chapter %q has no pages", c.Name)
+	}
+
 	c.size = 0
 	status := func() string {
 		return fmt.Sprintf(
@@ -58,9 +62,9 @@ func (c *Chapter) DownloadPages(temp bool, progress func(string)) (err error) {
 	wg := sync.WaitGroup{}
 	wg.Add(len(c.Pages))
 
-	for _, page := range c.Pages {
+	for i, page := range c.Pages {
 		if page == nil {
-			return fmt.Errorf("page #%d is empty, aborting download", page.Index)
+			return fmt.Errorf("page #%d is nil, aborting download", i)
 		}
 
 		d := func(page *Page) {
