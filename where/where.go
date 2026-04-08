@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 )
 
-const EnvConfigPath = "MANGAL_CONFIG_PATH"
+const EnvConfigPath = "KOMA_CONFIG_PATH"
 
 // mkdir creates a directory and all parent directories if they don't exist
 // will return the path of the directory
