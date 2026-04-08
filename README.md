@@ -52,6 +52,43 @@
 
 ## Installation
 
+### Homebrew (macOS / Linux)
+
+```shell
+brew tap JaneWoo0068/homebrew-koma
+brew install koma
+```
+
+### Pre-compiled binaries
+
+Download the latest release for your platform from the [Releases page](https://github.com/JaneWoo0068/koma/releases/latest).
+
+**macOS / Linux:**
+```shell
+# Example for macOS Apple Silicon (arm64)
+tar xzf koma_*_Darwin_arm64.tar.gz
+sudo mv koma /usr/local/bin/
+koma
+```
+
+**Windows:**
+1. Download the `.zip` for your architecture
+2. Extract it
+3. Open Command Prompt or PowerShell in that folder
+4. Run `koma.exe`
+
+**Debian / Ubuntu:**
+```shell
+sudo dpkg -i koma_*_amd64.deb
+koma
+```
+
+**Fedora / RHEL:**
+```shell
+sudo rpm -i koma-*-1.x86_64.rpm
+koma
+```
+
 ### From source
 
 Visit this link to install [Go](https://go.dev/doc/install).
