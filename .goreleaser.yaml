@@ -92,7 +92,7 @@ changelog:
 brews:
   - name: koma
 
-    tap:
+    repository:
       owner: JaneWoo0068
       name: homebrew-koma
       branch: main
