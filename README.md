@@ -89,6 +89,15 @@ sudo rpm -i koma-*-1.x86_64.rpm
 koma
 ```
 
+### Docker
+
+```shell
+docker pull ghcr.io/janewoo0068/koma:latest
+docker run --rm -ti -v $(pwd)/downloads:/downloads ghcr.io/janewoo0068/koma
+```
+
+> **Tip for macOS users:** [OrbStack](https://orbstack.dev/) is a lightweight and fast alternative to Docker Desktop. Install it, then use the same `docker` commands above.
+
 ### From source
 
 Visit this link to install [Go](https://go.dev/doc/install).
