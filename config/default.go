@@ -319,6 +319,11 @@ Use "any" to show all languages`,
 		"Show chapters that cannot be downloaded",
 	},
 	{
+		key.MangadexRequestDelay,
+		200,
+		"Delay between MangaDex API requests in milliseconds (0 to disable)",
+	},
+	{
 		key.InstallerUser,
 		"metafates",
 		"Custom scrapers repository owner",

@@ -55,6 +55,11 @@ func (s *luaSource) call(fn string, ret lua.LValueType, args ...lua.LValue) (lua
 	return val, nil
 }
 
+func (s *luaSource) Close() error {
+	s.state.Close()
+	return nil
+}
+
 func (s *luaSource) ID() string {
 	return IDfromName(s.name)
 }

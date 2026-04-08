@@ -14,6 +14,12 @@ func Run(options *Options) (err error) {
 		options.Out = os.Stdout
 	}
 
+	defer func() {
+		for _, src := range options.Sources {
+			source.CloseSource(src)
+		}
+	}()
+
 	var mangas []*source.Manga
 	for _, src := range options.Sources {
 		m, err := src.Search(options.Query)

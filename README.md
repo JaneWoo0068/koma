@@ -1,5 +1,5 @@
 <h1 align="center">
-<strong>Mangal 4 ☄️</strong>
+<strong>Koma コマ</strong>
 </h1>
 
 <p align="center">
@@ -14,11 +14,15 @@
 </h3>
 
 <p align="center">
-    <img alt="Mangal 4 TUI" src="assets/tui.gif">
+    <em>Named after コマ (koma) — the panel, the smallest storytelling unit of manga.</em>
 </p>
 
-> [!CAUTION]
-> As of April 2025, Mangal is no longer maintained. I am incredibly grateful to everyone who used it, contributed, or gave feedback along the way - thank you! Unfortunately, I just don't have the time to keep it going right now. That said, it's open source, so you're more than welcome to fork it, build on it, or maintain your own version. I might return to it someday, but for now, I don't recommend using it as-is - running unmaintained software can introduce security risks.
+<p align="center">
+    <img alt="Koma TUI" src="assets/tui.gif">
+</p>
+
+> [!NOTE]
+> Koma is an actively maintained fork of [metafates/mangal](https://github.com/metafates/mangal), which was archived in April 2025. This fork includes security fixes, dependency upgrades, bug fixes, and new features. See [Changes from upstream](#changes-from-upstream) below.
 
 ## Try it!
 
@@ -43,7 +47,7 @@ curl -sSL mangal.metafates.one/run | sh
 
 - __Lua Scrapers!!!__ You can add any source you want by creating your own _(or using someone's else)_ scraper with
   __Lua 5.1__. See [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers)
-- __4 Built-in sources__ - [Mangadex](https://mangadex.org), [Manganelo](https://m.manganelo.com/wwww), [Manganato](https://manganato.com) & [Mangapill](https://mangapill.com)
+- __2 Built-in sources__ - [Mangadex](https://mangadex.org) & [Mangapill](https://mangapill.com). Additional sources via Lua scrapers
 - __Download & Read Manga__ - I mean, it would be strange if you couldn't, right?
 - __Caching__ - Mangal will cache as much data as possible, so you don't have to wait for it to download the same data over and over again. 
 - __4 Different export formats__ - PDF, CBZ, ZIP and plain images
@@ -289,6 +293,48 @@ Besides fetching metadata for each manga when downloading,
 mangal can also mark chapters as read on your Anilsit profile when you read them inside mangal.
 
 For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist-Integration)
+
+## Changes from upstream
+
+This fork includes the following changes compared to the original [metafates/mangal](https://github.com/metafates/mangal):
+
+### Security
+- Upgraded Go 1.18 to 1.23.0
+- Fixed 9 CVEs in `golang.org/x/net`, `golang.org/x/image`, `google.golang.org/protobuf`
+
+### Bug fixes
+- Fixed MangaDex chapter pagination skipping pages on language filter (#172)
+- Fixed MangaDex chapter index out of range crash (#150, #196)
+- Fixed MangaDex search fatal exit on API error
+- Fixed Mangapill scraper (CSS selector, URL encoding, Host header)
+- Fixed config `set` crash on empty string value (#147)
+- Fixed nil pointer panic during chapter download (#135)
+- Fixed empty volume folders when downloading CBZ (#183)
+- Fixed long vertical pages clipped in PDF export (#192)
+- Fixed headless browser memory leak in Lua scrapers (#171)
+- Fixed TUI spinner not animating during loading
+- Fixed "Anilsit" typo in Anilist integration (#209)
+
+### New features
+- MangaDex chapter deduplication across scanlation groups, preferring official translations (#162)
+- MangaDex API rate limiting (configurable, default 200ms/req) (#152)
+- Chapter publish date from source used in ComicInfo metadata (#164)
+- Download on enter when `tui.read_on_enter` is false (#156)
+- `downloader.escape_whitespace` option to control filename whitespace handling (#159)
+
+### Removed
+- Manganelo and Manganato built-in scrapers (domains defunct, Cloudflare-blocked). Use Lua scrapers for alternative sources.
+
+## Roadmap
+
+Planned for future releases:
+
+- [ ] Inline mode output directory override (#186)
+- [ ] Add new manga sources (WeebCentral, etc.)
+- [ ] Headless browser support for built-in scrapers (enables Cloudflare-protected sites)
+- [ ] Go module path migration from `metafates/mangal` to `JaneWoo0068/koma`
+- [ ] Modernize TUI interface
+- [ ] Updated Lua scraper documentation and examples
 
 ## Honorable mentions
 

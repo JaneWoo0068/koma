@@ -1,6 +1,12 @@
 package pdf
 
 import (
+	"bytes"
+	"image"
+	_ "image/gif"
+	_ "image/jpeg"
+	_ "image/png"
+
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/key"
 	"github.com/metafates/mangal/source"
@@ -10,6 +16,8 @@ import (
 	"github.com/pdfcpu/pdfcpu/pkg/pdfcpu"
 	"github.com/spf13/viper"
 	"io"
+
+	_ "golang.org/x/image/webp"
 )
 
 type PDF struct{}
@@ -71,7 +79,21 @@ func pagesToPDF(w io.Writer, pages []*source.Page) error {
 	}
 
 	for _, r := range pages {
-		indRef, err := pdfcpu.NewPageForImage(ctx.XRefTable, r, pagesIndRef, imp)
+		// Read the page contents so we can decode image dimensions
+		// and then create a fresh reader for the PDF import.
+		data := r.Contents.Bytes()
+
+		// Decode image dimensions to set the page size to match the image,
+		// preventing tall webtoon/manhwa pages from being clipped to A4.
+		imgCfg, _, err := image.DecodeConfig(bytes.NewReader(data))
+		if err == nil {
+			imp.PageDim = &pdfcpu.Dim{
+				Width:  float64(imgCfg.Width),
+				Height: float64(imgCfg.Height),
+			}
+		}
+
+		indRef, err := pdfcpu.NewPageForImage(ctx.XRefTable, bytes.NewReader(data), pagesIndRef, imp)
 
 		if err != nil {
 			if viper.GetBool(key.FormatsSkipUnsupportedImages) {

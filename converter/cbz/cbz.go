@@ -6,6 +6,7 @@ import (
 	"encoding/xml"
 	"github.com/metafates/mangal/filesystem"
 	"github.com/metafates/mangal/key"
+	"github.com/metafates/mangal/log"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/util"
 	"github.com/spf13/viper"
@@ -52,6 +53,10 @@ func SaveTo(chapter *source.Chapter, to string) error {
 	defer util.Ignore(zipWriter.Close)
 
 	for _, page := range chapter.Pages {
+		if page.Contents == nil {
+			log.Warnf("Skipping page #%d: contents are nil", page.Index)
+			continue
+		}
 		if err = addToZip(zipWriter, page.Contents, page.Filename()); err != nil {
 			return err
 		}

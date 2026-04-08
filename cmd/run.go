@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/metafates/mangal/provider/custom"
+	"github.com/metafates/mangal/source"
 	"github.com/samber/lo"
 	"github.com/spf13/cobra"
 )
@@ -22,7 +23,11 @@ Or you can use mangal as a standalone lua interpreter.`,
 		sourcePath := args[0]
 
 		// LoadSource runs file when it's loaded
-		_, err := custom.LoadSource(sourcePath, !lo.Must(cmd.Flags().GetBool("lenient")))
+		src, err := custom.LoadSource(sourcePath, !lo.Must(cmd.Flags().GetBool("lenient")))
 		handleErr(err)
+
+		if src != nil {
+			source.CloseSource(src)
+		}
 	},
 }

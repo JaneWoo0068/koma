@@ -44,8 +44,7 @@ func (p *Page) request() (*http.Request, error) {
 // Download Page contents.
 func (p *Page) Download() error {
 	if p.URL == "" {
-		log.Warnf("Page #%d has no URL", p.Index)
-		return nil
+		return fmt.Errorf("page #%d has no URL, can't download", p.Index)
 	}
 
 	log.Tracef("Downloading page #%d (%s)", p.Index, p.URL)
