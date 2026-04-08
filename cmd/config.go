@@ -127,14 +127,14 @@ var configSetCmd = &cobra.Command{
 			handleErr(errUnknownKey(key))
 		}
 
-		if len(value) == 0 {
-			value = []string{""}
-		}
-
 		var v any
 		switch config.Default[key].Value.(type) {
 		case string:
-			v = value[0]
+			if len(value) == 0 {
+				v = ""
+			} else {
+				v = value[0]
+			}
 		case int:
 			parsedInt, err := strconv.ParseInt(value[0], 10, 64)
 			if err != nil {
@@ -206,7 +206,7 @@ var configWriteCmd = &cobra.Command{
 			force          = lo.Must(cmd.Flags().GetBool("force"))
 			configFilePath = filepath.Join(
 				where.Config(),
-				fmt.Sprintf("%s.%s", constant.Mangal, "toml"),
+				fmt.Sprintf("%s.%s", constant.Koma, "toml"),
 			)
 		)
 
@@ -241,7 +241,7 @@ var configDeleteCmd = &cobra.Command{
 			Remove(
 				filepath.Join(
 					where.Config(),
-					fmt.Sprintf("%s.%s", constant.Mangal, "toml"),
+					fmt.Sprintf("%s.%s", constant.Koma, "toml"),
 				),
 			)
 

@@ -40,7 +40,7 @@ func Setup() error {
 }
 
 func setName() {
-	viper.SetConfigName(constant.Mangal)
+	viper.SetConfigName(constant.Koma)
 	viper.SetConfigType("toml")
 }
 
@@ -55,7 +55,7 @@ func setPaths() {
 
 // setEnvs sets the environment variables
 func setEnvs() {
-	viper.SetEnvPrefix(constant.Mangal)
+	viper.SetEnvPrefix(constant.Koma)
 	viper.SetEnvKeyReplacer(EnvKeyReplacer)
 
 	for _, env := range EnvExposed {

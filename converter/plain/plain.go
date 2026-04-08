@@ -2,6 +2,7 @@ package plain
 
 import (
 	"github.com/metafates/mangal/filesystem"
+	"github.com/metafates/mangal/log"
 	"github.com/metafates/mangal/source"
 	"io"
 	"os"
@@ -53,6 +54,11 @@ func save(chapter *source.Chapter, temp bool) (path string, err error) {
 }
 
 func savePage(page *source.Page, to string) error {
+	if page.Contents == nil {
+		log.Warnf("Skipping page #%d: contents are nil", page.Index)
+		return nil
+	}
+
 	file, err := filesystem.Api().Create(filepath.Join(to, page.Filename()))
 	if err != nil {
 		return err

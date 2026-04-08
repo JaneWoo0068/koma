@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"net/url"
 	"strconv"
+	"time"
 )
 
 func (m *Mangadex) Search(query string) ([]*source.Manga, error) {
@@ -35,6 +36,10 @@ func (m *Mangadex) Search(query string) ([]*source.Manga, error) {
 
 	params.Set("order[followedCount]", "desc")
 	params.Set("title", query)
+
+	if delay := viper.GetInt(key.MangadexRequestDelay); delay > 0 {
+		time.Sleep(time.Duration(delay) * time.Millisecond)
+	}
 
 	mangaList, err := m.client.Manga.GetMangaList(params)
 	if err != nil {

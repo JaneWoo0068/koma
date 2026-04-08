@@ -113,6 +113,9 @@ func (m *mini) handleState() error {
 	case chaptersDownloadState:
 		return m.handleChaptersDownloadState()
 	case quitState:
+		if m.selectedSource != nil {
+			source.CloseSource(m.selectedSource)
+		}
 		os.Exit(0)
 	}
 

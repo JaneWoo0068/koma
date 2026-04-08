@@ -101,7 +101,7 @@ func (f *Field) Pretty() string {
 
 func (f *Field) Env() string {
 	env := strings.ToUpper(EnvKeyReplacer.Replace(f.Key))
-	appPrefix := strings.ToUpper(constant.Mangal + "_")
+	appPrefix := strings.ToUpper(constant.Koma + "_")
 
 	if strings.HasPrefix(env, appPrefix) {
 		return env
@@ -190,6 +190,11 @@ Type "mangal sources list" to show available sources`,
 		key.DownloaderDownloadCover,
 		true,
 		`Whether to download manga cover or not`,
+	},
+	{
+		key.DownloaderEscapeWhitespace,
+		true,
+		`Replace whitespace with underscore in downloaded files`,
 	},
 	{
 		key.FormatsUse,
@@ -314,6 +319,11 @@ Use "any" to show all languages`,
 		"Show chapters that cannot be downloaded",
 	},
 	{
+		key.MangadexRequestDelay,
+		200,
+		"Delay between MangaDex API requests in milliseconds (0 to disable)",
+	},
+	{
 		key.InstallerUser,
 		"metafates",
 		"Custom scrapers repository owner",
@@ -382,7 +392,7 @@ panic, fatal, error, warn, info, debug, trace`,
 	{
 		key.TUIReadOnEnter,
 		true,
-		"Read chapter on enter if other chapters aren't selected",
+		"Read chapter on enter if other chapters aren't selected. Download otherwise",
 	},
 	{
 		key.TUISearchPromptString,

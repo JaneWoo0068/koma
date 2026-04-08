@@ -72,7 +72,7 @@ func init() {
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   constant.Mangal,
+	Use:   constant.Koma,
 	Short: "The ultimate manga downloader",
 	Long: constant.AsciiArtLogo + "\n" +
 		style.New().Italic(true).Foreground(color.HiRed).Render("    - The ultimate cli manga downloader"),

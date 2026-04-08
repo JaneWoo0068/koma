@@ -35,6 +35,7 @@ func (b *statefulBubble) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, b.keymap.forceQuit):
+			b.closeSources()
 			return b, tea.Quit
 		case key.Matches(msg, b.keymap.back):
 			onListBack := func(l *list.Model) tea.Cmd {
@@ -568,14 +569,19 @@ func (b *statefulBubble) updateChapters(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, b.keymap.confirm):
 			if len(b.selectedChapters) != 0 {
 				b.newState(confirmState)
-			} else if viper.GetBool(key2.TUIReadOnEnter) {
+			} else {
 				if b.chaptersC.SelectedItem() == nil {
 					break
 				}
-
 				chapter := b.chaptersC.SelectedItem().(*listItem).internal.(*source.Chapter)
-				b.newState(readState)
-				return b, tea.Batch(b.readChapter(chapter), b.waitForChapterRead(), b.startLoading())
+
+				if viper.GetBool(key2.TUIReadOnEnter) {
+					b.newState(readState)
+					return b, tea.Batch(b.readChapter(chapter), b.waitForChapterRead(), b.startLoading())
+				} else {
+					b.selectedChapters[chapter] = struct{}{}
+					b.newState(confirmState)
+				}
 			}
 		}
 	}
@@ -631,6 +637,7 @@ func (b *statefulBubble) updateConfirm(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, b.keymap.quit):
+			b.closeSources()
 			return b, tea.Quit
 		case key.Matches(msg, b.keymap.confirm):
 			chapters := lo.Keys(b.selectedChapters)
@@ -700,6 +707,7 @@ func (b *statefulBubble) updateDownloadDone(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, b.keymap.quit):
+			b.closeSources()
 			return b, tea.Quit
 		case key.Matches(msg, b.keymap.openFolder):
 			err := open.StartWith(
@@ -736,6 +744,7 @@ func (b *statefulBubble) updateError(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		switch {
 		case key.Matches(msg, b.keymap.quit):
+			b.closeSources()
 			return b, tea.Quit
 		}
 	}

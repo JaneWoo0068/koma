@@ -3,6 +3,7 @@ package zip
 import (
 	"archive/zip"
 	"github.com/metafates/mangal/filesystem"
+	"github.com/metafates/mangal/log"
 	"github.com/metafates/mangal/source"
 	"github.com/metafates/mangal/util"
 	"io"
@@ -40,6 +41,10 @@ func save(chapter *source.Chapter, temp bool) (path string, err error) {
 	defer util.Ignore(zipWriter.Close)
 
 	for _, page := range chapter.Pages {
+		if page.Contents == nil {
+			log.Warnf("Skipping page #%d: contents are nil", page.Index)
+			continue
+		}
 		if err = addToZip(zipWriter, page.Contents, page.Filename()); err != nil {
 			return "", err
 		}

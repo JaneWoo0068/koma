@@ -29,6 +29,8 @@ type Chapter struct {
 	ID string `json:"id" jsonschema:"description=ID of the chapter in the source"`
 	// Volume which the chapter belongs to.
 	Volume string `json:"volume" jsonschema:"description=Volume which the chapter belongs to"`
+	// PublishDate is the original publish date of the chapter from the source.
+	PublishDate date `json:"publish_date" jsonschema:"description=Original publish date of the chapter"`
 	// Manga that the chapter belongs to.
 	Manga *Manga `json:"-"`
 	// Pages of the chapter.
@@ -151,6 +153,7 @@ func (c *Chapter) IsDownloaded() bool {
 }
 
 func (c *Chapter) path(relativeTo string, createVolumeDir bool) (path string, err error) {
+	path = relativeTo
 	if createVolumeDir {
 		path = filepath.Join(path, util.SanitizeFilename(c.Volume))
 		err = filesystem.Api().MkdirAll(path, os.ModePerm)
@@ -159,7 +162,7 @@ func (c *Chapter) path(relativeTo string, createVolumeDir bool) (path string, er
 		}
 	}
 
-	path = filepath.Join(relativeTo, c.Filename())
+	path = filepath.Join(path, c.Filename())
 	return
 }
 
@@ -189,6 +192,11 @@ func (c *Chapter) ComicInfo() *ComicInfo {
 			day = t.Day()
 			month = int(t.Month())
 			year = t.Year()
+		} else if c.PublishDate.Year != 0 {
+			// use chapter publish date from source if available
+			day = c.PublishDate.Day
+			month = c.PublishDate.Month
+			year = c.PublishDate.Year
 		} else {
 			day = c.Manga.Metadata.StartDate.Day
 			month = c.Manga.Metadata.StartDate.Month

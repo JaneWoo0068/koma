@@ -77,6 +77,12 @@ type statefulBubble struct {
 	searchSuggestion mo.Option[string]
 }
 
+func (b *statefulBubble) closeSources() {
+	for _, src := range b.selectedSources {
+		source.CloseSource(src)
+	}
+}
+
 func (b *statefulBubble) raiseError(err error) {
 	b.lastError = err
 	b.errorPlot = randomPlot()

@@ -25,6 +25,11 @@ type date struct {
 	Day   int `json:"day"`
 }
 
+// NewDate creates a date value. Exported for use by providers.
+func NewDate(year, month, day int) date {
+	return date{Year: year, Month: month, Day: day}
+}
+
 // Manga is a manga from a source.
 type Manga struct {
 	// Name of the manga

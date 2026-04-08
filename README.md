@@ -1,5 +1,5 @@
 <h1 align="center">
-<strong>Mangal 4 ☄️</strong>
+<strong>Koma コマ</strong>
 </h1>
 
 <p align="center">
@@ -14,20 +14,15 @@
 </h3>
 
 <p align="center">
-    <img alt="Mangal 4 TUI" src="assets/tui.gif">
+    <em>Named after コマ (koma) — the panel, the smallest storytelling unit of manga.</em>
 </p>
 
-> [!CAUTION]
-> As of April 2025, Mangal is no longer maintained. I am incredibly grateful to everyone who used it, contributed, or gave feedback along the way - thank you! Unfortunately, I just don't have the time to keep it going right now. That said, it's open source, so you're more than welcome to fork it, build on it, or maintain your own version. I might return to it someday, but for now, I don't recommend using it as-is - running unmaintained software can introduce security risks.
+<p align="center">
+    <img alt="Koma TUI" src="assets/tui.gif">
+</p>
 
-## Try it!
-
-```shell
-curl -sSL mangal.metafates.one/run | sh
-```
-
-> **Note** This script does not install anything, it just downloads, verifies and runs Mangal.
-> Not available on Windows.
+> [!NOTE]
+> Koma is an actively maintained fork of [metafates/mangal](https://github.com/metafates/mangal), which was archived in April 2025. This fork includes security fixes, dependency upgrades, bug fixes, and new features. See [Changes from upstream](#changes-from-upstream) below.
 
 ## Table of contents
 
@@ -43,92 +38,19 @@ curl -sSL mangal.metafates.one/run | sh
 
 - __Lua Scrapers!!!__ You can add any source you want by creating your own _(or using someone's else)_ scraper with
   __Lua 5.1__. See [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers)
-- __4 Built-in sources__ - [Mangadex](https://mangadex.org), [Manganelo](https://m.manganelo.com/wwww), [Manganato](https://manganato.com) & [Mangapill](https://mangapill.com)
+- __2 Built-in sources__ - [Mangadex](https://mangadex.org) & [Mangapill](https://mangapill.com). Additional sources via Lua scrapers
 - __Download & Read Manga__ - I mean, it would be strange if you couldn't, right?
-- __Caching__ - Mangal will cache as much data as possible, so you don't have to wait for it to download the same data over and over again. 
+- __Caching__ - Koma will cache as much data as possible, so you don't have to wait for it to download the same data over and over again.
 - __4 Different export formats__ - PDF, CBZ, ZIP and plain images
 - __TUI ✨__ - You already know how to use it! (ﾉ>ω<)ﾉ :｡･::･ﾟ’★,｡･:･ﾟ’☆
-- __Scriptable__ - You can use Mangal in your scripts, it's just a CLI app after all. [Examples](https://github.com/metafates/mangal/wiki/Inline-mode)
+- __Scriptable__ - You can use Koma in your scripts, it's just a CLI app after all. [Examples](https://github.com/metafates/mangal/wiki/Inline-mode)
 - __History__ - Resume your reading from where you left off!
 - __Fast?__ - YES.
 - __Monolith__ - ZERO runtime dependencies. Even Lua is built in. Easy to install and use.
 - __Cross-Platform__ - Linux, macOS, Windows, Termux, even your toaster. (¬‿¬ )
-- __Anilist integration__ - Mangal will collect additional data from Anilist and use it to improve your reading experience. It can also sync your progress!
+- __Anilist integration__ - Koma will collect additional data from Anilist and use it to improve your reading experience. It can also sync your progress!
 
 ## Installation
-
-### Script (Linux, MacOS, Termux)
-
-Install using [this shell script](https://github.com/metafates/mangal/blob/main/scripts/install)
-
-```shell
-curl -sSL mangal.metafates.one/install | sh
-```
-
-This script will automatically detect OS & Distro and use the best option available.
-For example, on macOS it will try to use Homebrew, on Ubuntu it will install the `.deb` package and so on...
-
-### Arch Linux
-
-[AUR package](https://aur.archlinux.org/packages/mangal-bin) (maintained by [@balajsra](https://github.com/balajsra),
-thank you)
-
-### MacOS
-
-Install using [Homebrew](https://brew.sh/)
-
-    brew tap metafates/mangal
-    brew install mangal
-
-### Windows
-
-Install using [Scoop](https://scoop.sh/) (thanks to [@SonaliBendre](https://github.com/SonaliBendre) for adding it to
-the official bucket)
-
-    scoop bucket add extras
-    scoop install mangal
-
-### Termux
-
-Thanks to [@T-Dynamos](https://github.com/T-Dynamos) for adding it to the [termux-packages](https://github.com/termux/termux-packages)
-
-```shell
-pkg install mangal
-```
-
-### Gentoo
-
-Install using third-party overlay [raiagent](https://github.com/leycec/raiagent). Thanks to [@leycec](https://github.com/leycec) for maintaining it.
-
-```shell
-eselect repository enable raiagent
-emerge --sync raiagent
-emerge mangal
-```
-
-### Nix 
-
-Install using [Nix](https://nixos.org/download.html#download-nix). Thanks to [@bertof](https://github.com/bertof) for adding it to the [nixpkgs](https://github.com/NixOS/nixpkgs)
-
-```shell
-# NixOS
-nix-env -iA nixos.mangal
-
-# Non NixOS
-nix-env -iA nixpkgs.mangal
-```
-
-### Docker
-
-Install using Docker. (thanks to [@ArabCoders](https://github.com/ArabCoders) for reference)
-
-    docker pull metafates/mangal
-
-To run
-
-```shell
-docker run --rm -ti -e "TERM=xterm-256color" -v $(PWD)/mangal/downloads:/downloads -v $(PWD)/mangal/config:/config metafates/mangal
-```
 
 ### From source
 
@@ -136,19 +58,18 @@ Visit this link to install [Go](https://go.dev/doc/install).
 
 Clone the repo
 ```shell
-git clone --depth 1 https://github.com/metafates/mangal.git
-cd mangal
+git clone --depth 1 https://github.com/JaneWoo0068/mangal.git koma
+cd koma
 ```
 
 GNU Make **(Recommended)**
 ```shell
-make install # if you want to compile and install mangal to path
+make install # if you want to compile and install koma to path
 make build # if you want to just build the binary
 ```
 
 <details>
 <summary>If you don't have GNU Make use this</summary>
-
 
 ```shell
 # To build
@@ -160,7 +81,7 @@ go install -ldflags "-X 'github.com/metafates/mangal/constant.BuiltAt=$(date -u)
 
 </details>
 
-If you want to build mangal for other architecture, say ARM, you'll have to set env variables `GOOS` and `GOARCH`
+If you want to build for other architectures, set env variables `GOOS` and `GOARCH`
 
 ```shell
 GOOS=linux GOARCH=arm64 make build
@@ -168,16 +89,27 @@ GOOS=linux GOARCH=arm64 make build
 
 [Available GOOS and GOARCH combinations](https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63)
 
-### Pre-compiled
+<details>
+<summary><strong>Legacy installation methods (original mangal, not maintained for Koma)</strong></summary>
 
-Download the pre-compiled binaries from the [releases page](https://github.com/metafates/mangal/releases/latest)
-and copy them to the desired location.
+The following installation methods were available for the original [metafates/mangal](https://github.com/metafates/mangal) project. They install the original mangal, **not Koma**, and may no longer be functional since the upstream project was archived.
+
+- **Script (Linux, MacOS, Termux):** `curl -sSL mangal.metafates.one/install | sh`
+- **Arch Linux:** [AUR package](https://aur.archlinux.org/packages/mangal-bin)
+- **MacOS (Homebrew):** `brew tap metafates/mangal && brew install mangal`
+- **Windows (Scoop):** `scoop bucket add extras && scoop install mangal`
+- **Termux:** `pkg install mangal`
+- **Gentoo:** via [raiagent](https://github.com/leycec/raiagent) overlay
+- **Nix:** `nix-env -iA nixpkgs.mangal`
+- **Docker:** `docker pull metafates/mangal`
+
+</details>
 
 ## Usage
 
 ### TUI
 
-Just run `mangal` and you're ready to go.
+Just run `koma` and you're ready to go.
 
 <details>
 <summary>Keybinds</summary>
@@ -214,7 +146,7 @@ Just run `mangal` and you're ready to go.
 
 Mini mode tries to mimic [ani-cli](https://github.com/pystardust/ani-cli)
 
-To run: `mangal mini`
+To run: `koma mini`
 
 ![mini](https://user-images.githubusercontent.com/62389790/198830544-f2005ec4-c206-4fe0-bd08-862ffd08320e.png)
 
@@ -222,44 +154,44 @@ To run: `mangal mini`
 
 Inline mode is intended for use with other scripts.
 
-Type `mangal help inline` for more information.
+Type `koma help inline` for more information.
 
 See [Wiki](https://github.com/metafates/mangal/wiki/Inline-mode) for more examples.
 
 <p align="center">
-    <img alt="Mangal 4 Inline" src="assets/inline.gif">
+    <img alt="Koma Inline" src="assets/inline.gif">
 </p>
 
 ### Other
 
-See `mangal help` for more information
+See `koma help` for more information
 
 ## Configuration
 
-Mangal uses [TOML](https://toml.io) format for configuration under the `mangal.toml` filename.
+Koma uses [TOML](https://toml.io) format for configuration under the `koma.toml` filename.
 Config path depends on the OS.
-To find yours, use `mangal where --config`.
-For example, on __Linux__ it would be `~/.config/mangal/mangal.toml`.
+To find yours, use `koma where --config`.
+For example, on __Linux__ it would be `~/.config/koma/koma.toml`.
 
-Use env variable `MANGAL_CONFIG_PATH` to set custom config path.
-> See `mangal env` to show all available env variables.
+Use env variable `KOMA_CONFIG_PATH` to set custom config path.
+> See `koma env` to show all available env variables.
 
-| Command               | Description                                      |
-|-----------------------|--------------------------------------------------|
-| `mangal config get`   | Get config value for specific key                |
-| `mangal config set`   | Set config value for specific key                |
-| `mangal config reset` | Reset config value for specific key              |
-| `mangal config info`  | List all config fields with description for each |
-| `mangal config write` | Write current config to a file                   |
+| Command              | Description                                      |
+|----------------------|--------------------------------------------------|
+| `koma config get`    | Get config value for specific key                |
+| `koma config set`    | Set config value for specific key                |
+| `koma config reset`  | Reset config value for specific key              |
+| `koma config info`   | List all config fields with description for each |
+| `koma config write`  | Write current config to a file                   |
 
 ## Custom scrapers
 
 TLDR; To browse and install a custom scraper
 from [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers) run
 
-    mangal sources install
+    koma sources install
 
-Mangal has a Lua5.1 VM built-in + some useful libraries, such as headless chrome, http client, html parser and so on...
+Koma has a Lua5.1 VM built-in + some useful libraries, such as headless chrome, http client, html parser and so on...
 
 Check the [defined modules](https://github.com/metafates/mangal-lua-libs) for more information.
 
@@ -267,15 +199,15 @@ For scrapers examples, check the [mangal-scrapers repository](https://github.com
 
 ### Creating a custom scraper
 
-This command will create `example.lua` file in the `mangal where --sources` directory.
+This command will create `example.lua` file in the `koma where --sources` directory.
 
-    mangal sources gen --name example --url https://example.com
+    koma sources gen --name example --url https://example.com
 
 Open the file and edit it as you wish.
 Take a look at the comments for more information.
 See [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers) for examples.
 
-You can test it by running `mangal run <filepath>`
+You can test it by running `koma run <filepath>`
 
 It should automatically appear in the list of available scrapers.
 
@@ -283,18 +215,63 @@ It should automatically appear in the list of available scrapers.
 
 ## Anilist
 
-Mangal also supports integration with anilist.
+Koma also supports integration with Anilist.
 
 Besides fetching metadata for each manga when downloading,
-mangal can also mark chapters as read on your Anilsit profile when you read them inside mangal.
+Koma can also mark chapters as read on your Anilist profile when you read them inside Koma.
 
 For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist-Integration)
 
+## Changes from upstream
+
+This fork includes the following changes compared to the original [metafates/mangal](https://github.com/metafates/mangal):
+
+### Security
+- Upgraded Go 1.18 to 1.23.0
+- Fixed 9 CVEs in `golang.org/x/net`, `golang.org/x/image`, `google.golang.org/protobuf`
+
+### Bug fixes
+- Fixed MangaDex chapter pagination skipping pages on language filter (#172)
+- Fixed MangaDex chapter index out of range crash (#150, #196)
+- Fixed MangaDex search fatal exit on API error
+- Fixed Mangapill scraper (CSS selector, URL encoding, Host header)
+- Fixed config `set` crash on empty string value (#147)
+- Fixed nil pointer panic during chapter download (#135)
+- Fixed empty volume folders when downloading CBZ (#183)
+- Fixed long vertical pages clipped in PDF export (#192)
+- Fixed headless browser memory leak in Lua scrapers (#171)
+- Fixed TUI spinner not animating during loading
+- Fixed "Anilsit" typo in Anilist integration (#209)
+
+### New features
+- MangaDex chapter deduplication across scanlation groups, preferring official translations (#162)
+- MangaDex API rate limiting (configurable, default 200ms/req) (#152)
+- Chapter publish date from source used in ComicInfo metadata (#164)
+- Download on enter when `tui.read_on_enter` is false (#156)
+- `downloader.escape_whitespace` option to control filename whitespace handling (#159)
+
+### Removed
+- Manganelo and Manganato built-in scrapers (domains defunct, Cloudflare-blocked). Use Lua scrapers for alternative sources.
+
+## Roadmap
+
+Planned for future releases:
+
+- [ ] Inline mode output directory override (#186)
+- [ ] Add new manga sources (WeebCentral, etc.)
+- [ ] Headless browser support for built-in scrapers (enables Cloudflare-protected sites)
+- [ ] GitHub Releases with GoReleaser
+- [ ] Homebrew tap
+- [ ] Docker image
+- [ ] Go module path migration from `metafates/mangal` to `JaneWoo0068/koma`
+- [ ] Modernize TUI interface
+- [ ] Updated Lua scraper documentation and examples
+
 ## Honorable mentions
 
-### Projects using mangal
+### Projects using mangal/Koma
 
-- [kaizoku](https://github.com/oae/kaizoku) - Self-hosted manga downloader with mangal as its core 🚀
+- [kaizoku](https://github.com/oae/kaizoku) - Self-hosted manga downloader with mangal as its core
 
 ### Similar Projects
 
@@ -308,32 +285,12 @@ For more information see [wiki](https://github.com/metafates/mangal/wiki/Anilist
 ### Libraries
 
 - [bubbletea](https://github.com/charmbracelet/bubbletea), [bubbles](https://github.com/charmbracelet/bubbles)
-  & [lipgloss](https://github.com/charmbracelet/lipgloss) - Made mangal shine! The best TUI libraries ever ✨
-- [gopher-lua](https://github.com/yuin/gopher-lua) - Made it possible to write custom scrapers with Lua ❤️
-- [cobra](https://github.com/spf13/cobra) and [viper](https://github.com/spf13/viper) - Responsible for the awesome CLI
-  & config experience 🛠
-- [pdfcpu](https://github.com/pdfcpu/pdfcpu) - Fast pdf processor in pure go 📄
+  & [lipgloss](https://github.com/charmbracelet/lipgloss) - TUI framework
+- [gopher-lua](https://github.com/yuin/gopher-lua) - Lua VM for custom scrapers
+- [cobra](https://github.com/spf13/cobra) and [viper](https://github.com/spf13/viper) - CLI & config
+- [pdfcpu](https://github.com/pdfcpu/pdfcpu) - PDF processor in pure Go
 - _And many others!_
 
 ### Contributors
 
-And of course, thanks to all contributors! You are awesome!
-
-<p align="center">
-<a href="https://github.com/metafates/mangal/graphs/contributors">
-  <img alt="Contributors" src="https://contrib.rocks/image?repo=metafates/mangal" />
-</a>
-</p>
-
----
-
-<p align="center">
-If you find this project useful or want to say thank you,
-please consider starring it, that would mean a lot to me ⭐
-</p>
-
-<p align="center">
-<a href="https://star-history.com/#metafates/mangal&Date">
-<img alt="Star History" src="https://api.star-history.com/svg?repos=metafates/mangal&type=Date"/>
-</a>
-</p>
+Thanks to all [original contributors](https://github.com/metafates/mangal/graphs/contributors) of mangal!
