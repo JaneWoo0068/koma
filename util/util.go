@@ -31,7 +31,7 @@ var replacers = []lo.Tuple2[*regexp.Regexp, string]{
 
 // SanitizeFilename will remove all invalid characters from a path.
 func SanitizeFilename(filename string) string {
-	if viper.GetBool(key.DownloaderEscapeWhitespace) {
+	if !viper.IsSet(key.DownloaderEscapeWhitespace) || viper.GetBool(key.DownloaderEscapeWhitespace) {
 		filename = regexp.MustCompile(`\s`).ReplaceAllString(filename, "_")
 	}
 	for _, re := range replacers {

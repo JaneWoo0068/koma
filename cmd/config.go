@@ -206,7 +206,7 @@ var configWriteCmd = &cobra.Command{
 			force          = lo.Must(cmd.Flags().GetBool("force"))
 			configFilePath = filepath.Join(
 				where.Config(),
-				fmt.Sprintf("%s.%s", constant.Mangal, "toml"),
+				fmt.Sprintf("%s.%s", constant.Koma, "toml"),
 			)
 		)
 
@@ -241,7 +241,7 @@ var configDeleteCmd = &cobra.Command{
 			Remove(
 				filepath.Join(
 					where.Config(),
-					fmt.Sprintf("%s.%s", constant.Mangal, "toml"),
+					fmt.Sprintf("%s.%s", constant.Koma, "toml"),
 				),
 			)
 

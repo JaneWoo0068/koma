@@ -22,8 +22,8 @@ func init() {
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of mangal",
-	Long:  `All software has versions. This is mangal's`,
+	Short: "Print the version number of koma",
+	Long:  `All software has versions. This is koma's`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if lo.Must(cmd.Flags().GetBool("short")) {
 			cmd.Println(constant.Version)
@@ -42,7 +42,7 @@ var versionCmd = &cobra.Command{
 			App      string
 		}{
 			Version:  constant.Version,
-			App:      constant.Mangal,
+			App:      constant.Koma,
 			OS:       runtime.GOOS,
 			Arch:     runtime.GOARCH,
 			BuiltAt:  strings.TrimSpace(constant.BuiltAt),

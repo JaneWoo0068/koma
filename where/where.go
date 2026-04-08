@@ -27,7 +27,7 @@ func Config() string {
 	if customDir, present := os.LookupEnv(EnvConfigPath); present {
 		path = customDir
 	} else {
-		path = filepath.Join(lo.Must(os.UserConfigDir()), constant.Mangal)
+		path = filepath.Join(lo.Must(os.UserConfigDir()), constant.Koma)
 	}
 
 	return mkdir(path)
@@ -84,13 +84,13 @@ func Cache() string {
 		cacheDir = filepath.Join(".", "cache")
 	}
 
-	cacheDir = filepath.Join(cacheDir, constant.Mangal)
+	cacheDir = filepath.Join(cacheDir, constant.Koma)
 	return mkdir(cacheDir)
 }
 
 // Temp path
 // Will create the directory if it doesn't exist
 func Temp() string {
-	tempDir := filepath.Join(os.TempDir(), constant.Mangal)
+	tempDir := filepath.Join(os.TempDir(), constant.Koma)
 	return mkdir(tempDir)
 }

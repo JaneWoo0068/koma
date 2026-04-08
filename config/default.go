@@ -101,7 +101,7 @@ func (f *Field) Pretty() string {
 
 func (f *Field) Env() string {
 	env := strings.ToUpper(EnvKeyReplacer.Replace(f.Key))
-	appPrefix := strings.ToUpper(constant.Mangal + "_")
+	appPrefix := strings.ToUpper(constant.Koma + "_")
 
 	if strings.HasPrefix(env, appPrefix) {
 		return env
