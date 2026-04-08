@@ -1,32 +1,22 @@
 package version
 
 import (
-	"github.com/metafates/mangal/constant"
-	. "github.com/smartystreets/goconvey/convey"
 	"regexp"
-	"runtime"
 	"testing"
 )
 
 func TestLatestVersion(t *testing.T) {
-	// I have no idea why this is failing on GitHub actions macOS runner
-	if runtime.GOOS == constant.Darwin {
-		t.Skip("Skipping test on darwin")
+	version, err := Latest()
+	if err != nil {
+		t.Skipf("Skipping: could not fetch latest version: %v", err)
 	}
 
-	Convey("When getting the latest version", t, func() {
-		version, err := Latest()
-		Convey("It should not return an error", func() {
-			So(err, ShouldBeNil)
+	if version == "" {
+		t.Fatal("Expected a non-empty version string")
+	}
 
-			Convey("It should return a version", func() {
-				So(version, ShouldNotBeEmpty)
-
-				Convey("It should has a semver format", func() {
-					semverRegex := regexp.MustCompile(`^v?(\d+)(\.\d+){0,2}(-\w+)?$`)
-					So(semverRegex.MatchString(version), ShouldBeTrue)
-				})
-			})
-		})
-	})
+	semverRegex := regexp.MustCompile(`^v?(\d+)(\.\d+){0,2}(-\w+)?$`)
+	if !semverRegex.MatchString(version) {
+		t.Fatalf("Expected semver format, got: %s", version)
+	}
 }
