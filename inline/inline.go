@@ -14,6 +14,13 @@ func Run(options *Options) (err error) {
 		options.Out = os.Stdout
 	}
 
+	// Override download directory if specified
+	if options.DownloadDir != "" {
+		original := viper.GetString(key.DownloaderPath)
+		viper.Set(key.DownloaderPath, options.DownloadDir)
+		defer viper.Set(key.DownloaderPath, original)
+	}
+
 	defer func() {
 		for _, src := range options.Sources {
 			source.CloseSource(src)
