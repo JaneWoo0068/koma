@@ -25,6 +25,7 @@ type Options struct {
 	Json                bool
 	PopulatePages       bool
 	Query               string
+	DownloadDir         string
 	MangaPicker         mo.Option[MangaPicker]
 	ChaptersFilter      mo.Option[ChaptersFilter]
 }

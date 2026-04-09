@@ -39,6 +39,7 @@ func init() {
 	lo.Must0(viper.BindPFlag(key.MetadataFetchAnilist, inlineCmd.Flags().Lookup("fetch-metadata")))
 
 	inlineCmd.Flags().StringP("output", "o", "", "output file")
+	inlineCmd.Flags().String("download-dir", "", "override download directory for this run")
 
 	lo.Must0(inlineCmd.MarkFlagRequired("query"))
 	inlineCmd.MarkFlagsMutuallyExclusive("download", "json")
@@ -141,6 +142,7 @@ When using the json flag manga selector could be omitted. That way, it will sele
 			Query:               query,
 			PopulatePages:       lo.Must(cmd.Flags().GetBool("populate-pages")),
 			IncludeAnilistManga: lo.Must(cmd.Flags().GetBool("include-anilist-manga")),
+			DownloadDir:         lo.Must(cmd.Flags().GetString("download-dir")),
 			MangaPicker:         mangaPicker,
 			ChaptersFilter:      chapterFilter,
 			Out:                 writer,
