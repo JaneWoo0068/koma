@@ -38,7 +38,7 @@
 
 - __Lua Scrapers!!!__ You can add any source you want by creating your own _(or using someone's else)_ scraper with
   __Lua 5.1__. See [mangal-scrapers repository](https://github.com/metafates/mangal-scrapers)
-- __2 Built-in sources__ - [Mangadex](https://mangadex.org) & [Mangapill](https://mangapill.com). Additional sources via Lua scrapers
+- __3 Built-in sources__ - [MangaDex](https://mangadex.org), [Mangapill](https://mangapill.com) & [WeebCentral](https://weebcentral.com). Additional sources via Lua scrapers
 - __Download & Read Manga__ - I mean, it would be strange if you couldn't, right?
 - __Caching__ - Koma will cache as much data as possible, so you don't have to wait for it to download the same data over and over again.
 - __4 Different export formats__ - PDF, CBZ, ZIP and plain images
