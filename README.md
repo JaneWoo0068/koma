@@ -204,6 +204,12 @@ Type `koma help inline` for more information.
 
 See [Wiki](https://github.com/metafates/mangal/wiki/Inline-mode) for more examples.
 
+You can override the download directory per invocation with `--download-dir`:
+
+```bash
+koma inline -q "manga name" -m first -c all -d --download-dir ~/manga/
+```
+
 <p align="center">
     <img alt="Koma Inline" src="assets/inline.gif">
 </p>
