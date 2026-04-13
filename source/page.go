@@ -44,6 +44,9 @@ func (p *Page) request() (*http.Request, error) {
 // Download Page contents.
 func (p *Page) Download() error {
 	if p.URL == "" {
+		if p.Contents != nil && p.Size > 0 {
+			return nil
+		}
 		return fmt.Errorf("page #%d has no URL, can't download", p.Index)
 	}
 
